@@ -98,7 +98,7 @@
 <meta property="og:site_name" content="Newbirder 的博客">
 <meta property="og:description" content="1. HTTPS是什么HTTPS全称为Hypertext Transfer Protocol over Secure Socket Layer，及以安全为目标的HTTP通道，简单说就是HTTP的安全版本。 HTTPS其实是由两部分组成的：HTTP+TLS/SSL，即HTTP下加入TLS/SSL层，HTTPS的安全基础就是TLS/SSL。服务端和客户端的信息传输都会通过TLS/SSL进行加密，所以传">
 <meta property="og:image" content="http://yoursite.com/2017/06/12/Https原理简介/https_work.png">
-<meta property="og:updated_time" content="2017-07-12T17:34:16.000Z">
+<meta property="og:updated_time" content="2017-07-12T17:38:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Https原理简介">
 <meta name="twitter:description" content="1. HTTPS是什么HTTPS全称为Hypertext Transfer Protocol over Secure Socket Layer，及以安全为目标的HTTP通道，简单说就是HTTP的安全版本。 HTTPS其实是由两部分组成的：HTTP+TLS/SSL，即HTTP下加入TLS/SSL层，HTTPS的安全基础就是TLS/SSL。服务端和客户端的信息传输都会通过TLS/SSL进行加密，所以传">
@@ -331,30 +331,22 @@
       
         <h4 id="1-HTTPS是什么"><a href="#1-HTTPS是什么" class="headerlink" title="1. HTTPS是什么"></a>1. HTTPS是什么</h4><p>HTTPS全称为Hypertext Transfer Protocol over Secure Socket Layer，及以安全为目标的HTTP通道，简单说就是HTTP的安全版本。</p>
 <p>HTTPS其实是由两部分组成的：HTTP+TLS/SSL，即HTTP下加入TLS/SSL层，HTTPS的安全基础就是TLS/SSL。服务端和客户端的信息传输都会通过TLS/SSL进行加密，所以传输的数据都是加密之后的数据。</p>
-<h4 id="2-加密算法"><a href="#2-加密算法" class="headerlink" title="2. 加密算法"></a>2. 加密算法</h4><p>1、 散列函数 Hash，常见的有 MD5、SHA1、SHA256，该类函数特点是函数单向不可逆、对输入非常敏感、输出长度固定，针对数据的任何修改都会改变散列函数的结果，用于防止信息篡改并验证数据的完整性。</p>
-<p>2、 对称加密，常见的有 AES-CBC、DES、3DES、AES-GCM等，相同的密钥可以用于信息的加密和解密，掌握密钥才能获取信息，能够防止信息窃听，通信方式是1对1。</p>
-<p>3、非对称加密，即常见的 RSA 算法，还包括 ECC、DH 等算法，算法特点是，密钥成对出现，一般称为公钥(公开)和私钥(保密)，公钥加密的信息只能私钥解开，私钥加密的信息只能公钥解开。因此掌握公钥的不同客户端之间不能互相解密信息，只能和掌握私钥的服务器进行加密通信，服务器可以实现1对多的通信，客户端也可以用来验证掌握私钥的服务器身份。</p>
+<h4 id="2-加密算法"><a href="#2-加密算法" class="headerlink" title="2. 加密算法"></a>2. 加密算法</h4><h6 id="1、散列函数-Hash"><a href="#1、散列函数-Hash" class="headerlink" title="1、散列函数 Hash"></a>1、散列函数 Hash</h6><p>常见的有 MD5、SHA1、SHA256，该类函数特点是函数单向不可逆、对输入非常敏感、输出长度固定，针对数据的任何修改都会改变散列函数的结果，用于防止信息篡改并验证数据的完整性。</p>
+<h6 id="2、对称加密"><a href="#2、对称加密" class="headerlink" title="2、对称加密"></a>2、对称加密</h6><p>常见的有 AES-CBC、DES、3DES、AES-GCM等，相同的密钥可以用于信息的加密和解密，掌握密钥才能获取信息，能够防止信息窃听，通信方式是1对1。</p>
+<h6 id="3、非对称加密"><a href="#3、非对称加密" class="headerlink" title="3、非对称加密"></a>3、非对称加密</h6><p>即常见的 RSA 算法，还包括 ECC、DH 等算法，算法特点是，密钥成对出现，一般称为公钥(公开)和私钥(保密)，公钥加密的信息只能私钥解开，私钥加密的信息只能公钥解开。因此掌握公钥的不同客户端之间不能互相解密信息，只能和掌握私钥的服务器进行加密通信，服务器可以实现1对多的通信，客户端也可以用来验证掌握私钥的服务器身份。</p>
 <h4 id="3、Https如何工作"><a href="#3、Https如何工作" class="headerlink" title="3、Https如何工作"></a>3、Https如何工作</h4><center><br><img src="https_work.png"><br></center>
 
 <p>其工作过程大致是：</p>
-<p>1、客户端发起HTTPS请求</p>
-<p>浏览器里面输入一个HTTPS网址，然后连接到服务端的443端口上。</p>
-<p>2、服务端的配置</p>
-<p>采用HTTPS协议的服务器必须要有一套数字证书，可以自己制作，也可以向组织申请。区别就是自己颁发的证书需要客户端验证通过才可以继续访问，而使用受信任的公司申请的证书则不会弹出提示页面。</p>
+<h6 id="1、客户端发起HTTPS请求"><a href="#1、客户端发起HTTPS请求" class="headerlink" title="1、客户端发起HTTPS请求"></a>1、客户端发起HTTPS请求</h6><p>浏览器里面输入一个HTTPS网址，然后连接到服务端的443端口上。</p>
+<h6 id="2、服务端的配置"><a href="#2、服务端的配置" class="headerlink" title="2、服务端的配置"></a>2、服务端的配置</h6><p>采用HTTPS协议的服务器必须要有一套数字证书，可以自己制作，也可以向组织申请。区别就是自己颁发的证书需要客户端验证通过才可以继续访问，而使用受信任的公司申请的证书则不会弹出提示页面。</p>
 <p>这套证书其实就是一对公钥和私钥，可以这么理解，公钥就是一把锁头，私钥就是这把锁的钥匙，锁头可以给别人对某个东西进行加锁，但是加锁完毕之后，只有持有这把锁的钥匙才可以解锁看到加锁的内容。</p>
 <p>采用的就是RSA公钥加密算法来区分证书签名和交换密钥，通过AES算法来加密数据。</p>
-<p>3、传送证书</p>
-<p>这个证书其实就是公钥，只是包含了很多信息，如证书的颁发机构、过期时间等等。</p>
-<p>4、客户端解析证书</p>
-<p>这部分工作是由客户端的TLS来完成的，首先会验证公钥是否有效，如颁发机构、过期时间等等，如果发现异常则会弹出一个警告框，提示证书存在问题。如果证书没有问题，那么就生成一个随机值，然后用证书对该随机值进行加密。</p>
-<p>5、传送加密信息</p>
-<p>这部分传送的是用证书加密后的随机值，目的就是让服务端得到这个随机值，然后客户端和服务端的通信就可以通过这个随机值来进行加密和解密了。</p>
-<p>6、服务端解密信息</p>
-<p>服务端用私钥解密后，得到了客户端传过来的随机值，至此一个非对称加密的过程结束，看到TLS利用非对称加密实现了身份认证和密钥协商。然后把内容通过该值进行对称加密。</p>
-<p>7、传输加密后的信息</p>
-<p>这部分是服务端用随机值加密后的信息，可以在客户端被还原。</p>
-<p>8、客户端解密信息</p>
-<p>客户端用之前生成的随机值解密服务端传送过来的信息，于是获取了解密后的内容，至此一个对称加密的过程结束，看到对称加密是用于对服务器待传送给客户端的数据进行加密用的。整个过程即使第三方监听了数据，也束手无策。</p>
+<h6 id="3、传送证书"><a href="#3、传送证书" class="headerlink" title="3、传送证书"></a>3、传送证书</h6><p>这个证书其实就是公钥，只是包含了很多信息，如证书的颁发机构、过期时间等等。</p>
+<h6 id="4、客户端解析证书"><a href="#4、客户端解析证书" class="headerlink" title="4、客户端解析证书"></a>4、客户端解析证书</h6><p>这部分工作是由客户端的TLS来完成的，首先会验证公钥是否有效，如颁发机构、过期时间等等，如果发现异常则会弹出一个警告框，提示证书存在问题。如果证书没有问题，那么就生成一个随机值，然后用证书对该随机值进行加密。</p>
+<h6 id="5、传送加密信息"><a href="#5、传送加密信息" class="headerlink" title="5、传送加密信息"></a>5、传送加密信息</h6><p>这部分传送的是用证书加密后的随机值，目的就是让服务端得到这个随机值，然后客户端和服务端的通信就可以通过这个随机值来进行加密和解密了。</p>
+<h6 id="6、服务端解密信息"><a href="#6、服务端解密信息" class="headerlink" title="6、服务端解密信息"></a>6、服务端解密信息</h6><p>服务端用私钥解密后，得到了客户端传过来的随机值，至此一个非对称加密的过程结束，看到TLS利用非对称加密实现了身份认证和密钥协商。然后把内容通过该值进行对称加密。</p>
+<h6 id="7、传输加密后的信息"><a href="#7、传输加密后的信息" class="headerlink" title="7、传输加密后的信息"></a>7、传输加密后的信息</h6><p>这部分是服务端用随机值加密后的信息，可以在客户端被还原。</p>
+<h6 id="8、客户端解密信息"><a href="#8、客户端解密信息" class="headerlink" title="8、客户端解密信息"></a>8、客户端解密信息</h6><p>客户端用之前生成的随机值解密服务端传送过来的信息，于是获取了解密后的内容，至此一个对称加密的过程结束，看到对称加密是用于对服务器待传送给客户端的数据进行加密用的。整个过程即使第三方监听了数据，也束手无策。</p>
 
       
     </div>
@@ -525,7 +517,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-HTTPS是什么"><span class="nav-number">1.</span> <span class="nav-text">1. HTTPS是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-加密算法"><span class="nav-number">2.</span> <span class="nav-text">2. 加密算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、Https如何工作"><span class="nav-number">3.</span> <span class="nav-text">3、Https如何工作</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-HTTPS是什么"><span class="nav-number">1.</span> <span class="nav-text">1. HTTPS是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-加密算法"><span class="nav-number">2.</span> <span class="nav-text">2. 加密算法</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1、散列函数-Hash"><span class="nav-number">2.0.1.</span> <span class="nav-text">1、散列函数 Hash</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2、对称加密"><span class="nav-number">2.0.2.</span> <span class="nav-text">2、对称加密</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3、非对称加密"><span class="nav-number">2.0.3.</span> <span class="nav-text">3、非对称加密</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、Https如何工作"><span class="nav-number">3.</span> <span class="nav-text">3、Https如何工作</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1、客户端发起HTTPS请求"><span class="nav-number">3.0.1.</span> <span class="nav-text">1、客户端发起HTTPS请求</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2、服务端的配置"><span class="nav-number">3.0.2.</span> <span class="nav-text">2、服务端的配置</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3、传送证书"><span class="nav-number">3.0.3.</span> <span class="nav-text">3、传送证书</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4、客户端解析证书"><span class="nav-number">3.0.4.</span> <span class="nav-text">4、客户端解析证书</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#5、传送加密信息"><span class="nav-number">3.0.5.</span> <span class="nav-text">5、传送加密信息</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#6、服务端解密信息"><span class="nav-number">3.0.6.</span> <span class="nav-text">6、服务端解密信息</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#7、传输加密后的信息"><span class="nav-number">3.0.7.</span> <span class="nav-text">7、传输加密后的信息</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#8、客户端解密信息"><span class="nav-number">3.0.8.</span> <span class="nav-text">8、客户端解密信息</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
