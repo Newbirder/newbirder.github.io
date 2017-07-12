@@ -98,10 +98,11 @@
 <meta property="og:site_name" content="Newbirder 的博客">
 <meta property="og:description" content="1. 可回收对象的判定1.1 引用计数算法给对象中添加一个引用计数器，每当有一个地方引用它时，计数器值就加1；当引用失效时，计数器值就减1；任何时刻计数器为0的对象就是不可能再被使用的。优点是简单，高效，现在的objective-c用的就是这种算法。缺点是很难处理循环引用，比如相互引用的两个对象则无法释放。 1.2 可达性分析算法（根搜索算法）主流商用程序语言的主流实现中，都是通过可达性分析来判断">
 <meta property="og:image" content="http://yoursite.com/2017/01/15/Java垃圾回收机制/gc_root_object.png">
+<meta property="og:image" content="http://yoursite.com/2017/01/15/Java垃圾回收机制/1.png">
 <meta property="og:image" content="http://yoursite.com/2017/01/15/Java垃圾回收机制/gc_mark_sweep.png">
 <meta property="og:image" content="http://yoursite.com/2017/01/15/Java垃圾回收机制/gc_copying.png">
 <meta property="og:image" content="http://yoursite.com/2017/01/15/Java垃圾回收机制/gc_mark_compact.png">
-<meta property="og:updated_time" content="2017-07-12T17:44:38.000Z">
+<meta property="og:updated_time" content="2017-07-12T18:00:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java垃圾回收机制">
 <meta name="twitter:description" content="1. 可回收对象的判定1.1 引用计数算法给对象中添加一个引用计数器，每当有一个地方引用它时，计数器值就加1；当引用失效时，计数器值就减1；任何时刻计数器为0的对象就是不可能再被使用的。优点是简单，高效，现在的objective-c用的就是这种算法。缺点是很难处理循环引用，比如相互引用的两个对象则无法释放。 1.2 可达性分析算法（根搜索算法）主流商用程序语言的主流实现中，都是通过可达性分析来判断">
@@ -334,7 +335,10 @@
       
         <h4 id="1-可回收对象的判定"><a href="#1-可回收对象的判定" class="headerlink" title="1. 可回收对象的判定"></a>1. 可回收对象的判定</h4><h5 id="1-1-引用计数算法"><a href="#1-1-引用计数算法" class="headerlink" title="1.1 引用计数算法"></a>1.1 引用计数算法</h5><p>给对象中添加一个引用计数器，每当有一个地方引用它时，计数器值就加1；当引用失效时，计数器值就减1；任何时刻计数器为0的对象就是不可能再被使用的。<br>优点是简单，高效，现在的objective-c用的就是这种算法。<br>缺点是很难处理循环引用，比如相互引用的两个对象则无法释放。</p>
 <h5 id="1-2-可达性分析算法（根搜索算法）"><a href="#1-2-可达性分析算法（根搜索算法）" class="headerlink" title="1.2 可达性分析算法（根搜索算法）"></a>1.2 可达性分析算法（根搜索算法）</h5><p>主流商用程序语言的主流实现中，都是通过可达性分析来判断对象是否存活的。从GC Roots 的对象作为起点，向下搜索它们引用的对象，可以生成一棵引用树，树的节点视为可达对象，反之视为不可达。</p>
-<center><br><img src="/2017/01/15/Java垃圾回收机制/gc_root_object.png"><br></center><br>在Java 语言中， 可作为 GC Roots 的对象包括以下几种：<br><br>&gt; 虚拟机栈（帧栈中的本地变量表）中引用的对象。<br>&gt; 方法区中静态属性引用的对象<br>&gt; 方法区中常量引用的对象。<br>&gt; 本地方法栈中JNI引用的对象。<br><br>#### 2. 垃圾回收算法<br><br>#####  2.1 标记清除算法 (Mark-Sweep)<br><br>标记-清除算法分为两个阶段：标记阶段和清除阶段。标记阶段的任务是标记出所有需要被回收的对象，清除阶段就是回收被标记的对象所占用的空间。<br>优点是简单，容易实现。<br>缺点是容易产生内存碎片，碎片太多可能会导致后续过程中需要为大对象分配空间时无法找到足够的空间而提前触发新的一次垃圾收集动作。<br><center><br><img src="/2017/01/15/Java垃圾回收机制/gc_mark_sweep.png"><br></center>
+<center><br><img src="/2017/01/15/Java垃圾回收机制/gc_root_object.png"><br></center><br>在Java 语言中， 可作为 GC Roots 的对象包括以下几种：<br>&gt; 虚拟机栈（帧栈中的本地变量表）中引用的对象。<br>&gt; 方法区中静态属性引用的对象<br>&gt; 方法区中常量引用的对象。<br>&gt; 本地方法栈中JNI引用的对象。<br><br>有了对对象回收的判定，接下来看看有哪些垃圾回收算法。<br><br><center><br><img src="/2017/01/15/Java垃圾回收机制/1.png"><br></center>
+
+<h4 id="2-垃圾回收算法"><a href="#2-垃圾回收算法" class="headerlink" title="2. 垃圾回收算法"></a>2. 垃圾回收算法</h4><h5 id="2-1-标记清除算法-Mark-Sweep"><a href="#2-1-标记清除算法-Mark-Sweep" class="headerlink" title="2.1 标记清除算法 (Mark-Sweep)"></a>2.1 标记清除算法 (Mark-Sweep)</h5><p>标记-清除算法分为两个阶段：标记阶段和清除阶段。标记阶段的任务是标记出所有需要被回收的对象，清除阶段就是回收被标记的对象所占用的空间。<br>优点是简单，容易实现。<br>缺点是容易产生内存碎片，碎片太多可能会导致后续过程中需要为大对象分配空间时无法找到足够的空间而提前触发新的一次垃圾收集动作。</p>
+<center><br><img src="/2017/01/15/Java垃圾回收机制/gc_mark_sweep.png"><br></center>
 
 <h5 id="2-2-复制算法-Copying"><a href="#2-2-复制算法-Copying" class="headerlink" title="2.2 复制算法 (Copying)"></a>2.2 复制算法 (Copying)</h5><p>复制算法将可用内存按容量划分为大小相等的两块，每次只使用其中的一块。当这一块的内存用完了，就将还存活着的对象复制到另外一块上面，然后再把已使用的内存空间一次清理掉，这样一来就不容易出现内存碎片的问题。<br>优缺点就是，实现简单，运行高效且不容易产生内存碎片，但是却对内存空间的使用做出了高昂的代价，因为能够使用的内存缩减到原来的一半。<br>从算法原理我们可以看出，Copying算法的效率跟存活对象的数目多少有很大的关系，如果存活对象很多，那么Copying算法的效率将会大大降低。</p>
 <center><br><img src="/2017/01/15/Java垃圾回收机制/gc_copying.png"><br></center>
@@ -515,7 +519,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-可回收对象的判定"><span class="nav-number">1.</span> <span class="nav-text">1. 可回收对象的判定</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-引用计数算法"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 引用计数算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-可达性分析算法（根搜索算法）"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 可达性分析算法（根搜索算法）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-复制算法-Copying"><span class="nav-number">1.3.</span> <span class="nav-text">2.2 复制算法 (Copying)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-标记整理算法-Mark-Compact"><span class="nav-number">1.4.</span> <span class="nav-text">2.3 标记整理算法 (Mark-Compact)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-4-分代回收算法"><span class="nav-number">1.5.</span> <span class="nav-text">2.4 分代回收算法</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-可回收对象的判定"><span class="nav-number">1.</span> <span class="nav-text">1. 可回收对象的判定</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-引用计数算法"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 引用计数算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-可达性分析算法（根搜索算法）"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 可达性分析算法（根搜索算法）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-垃圾回收算法"><span class="nav-number">2.</span> <span class="nav-text">2. 垃圾回收算法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-标记清除算法-Mark-Sweep"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 标记清除算法 (Mark-Sweep)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-复制算法-Copying"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 复制算法 (Copying)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-标记整理算法-Mark-Compact"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 标记整理算法 (Mark-Compact)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-4-分代回收算法"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 分代回收算法</span></a></li></ol></li></ol></div>
             
 
           </div>
