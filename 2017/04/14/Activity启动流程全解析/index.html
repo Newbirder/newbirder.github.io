@@ -93,19 +93,19 @@
 <meta name="description" content="Activity 启动流程是学习Android Framework的一个好途径。本文试图将从一些概念和启动流程整体入手，从而对Activity 启动做些了解。 一些对象功能介绍 ActivityManagerServices，简称AMS，服务端对象，负责系统中所有Activity的生命周期。 ActivityThread，App的真正入口。当开启App之后，会调用main()开始运行，开启消息循环">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Activity启动流程全解析（一）">
-<meta property="og:url" content="http://yoursite.com/2017/05/14/Activity启动流程全解析/index.html">
+<meta property="og:url" content="http://yoursite.com/2017/04/14/Activity启动流程全解析/index.html">
 <meta property="og:site_name" content="Newbirder 的博客">
 <meta property="og:description" content="Activity 启动流程是学习Android Framework的一个好途径。本文试图将从一些概念和启动流程整体入手，从而对Activity 启动做些了解。 一些对象功能介绍 ActivityManagerServices，简称AMS，服务端对象，负责系统中所有Activity的生命周期。 ActivityThread，App的真正入口。当开启App之后，会调用main()开始运行，开启消息循环">
-<meta property="og:image" content="http://yoursite.com/2017/05/14/Activity启动流程全解析/zygote.png">
-<meta property="og:image" content="http://yoursite.com/2017/05/14/Activity启动流程全解析/ActivityManager.png">
-<meta property="og:image" content="http://yoursite.com/2017/05/14/Activity启动流程全解析/ActivityIPC1.png">
-<meta property="og:image" content="http://yoursite.com/2017/05/14/Activity启动流程全解析/ActivityIPC2.png">
-<meta property="og:image" content="http://yoursite.com/2017/05/14/Activity启动流程全解析/ActivityIPC3.png">
-<meta property="og:updated_time" content="2017-05-14T13:26:19.000Z">
+<meta property="og:image" content="http://yoursite.com/2017/04/14/Activity启动流程全解析/zygote.png">
+<meta property="og:image" content="http://yoursite.com/2017/04/14/Activity启动流程全解析/ActivityManager.png">
+<meta property="og:image" content="http://yoursite.com/2017/04/14/Activity启动流程全解析/ActivityIPC1.png">
+<meta property="og:image" content="http://yoursite.com/2017/04/14/Activity启动流程全解析/ActivityIPC2.png">
+<meta property="og:image" content="http://yoursite.com/2017/04/14/Activity启动流程全解析/ActivityIPC3.png">
+<meta property="og:updated_time" content="2017-07-12T17:30:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Activity启动流程全解析（一）">
 <meta name="twitter:description" content="Activity 启动流程是学习Android Framework的一个好途径。本文试图将从一些概念和启动流程整体入手，从而对Activity 启动做些了解。 一些对象功能介绍 ActivityManagerServices，简称AMS，服务端对象，负责系统中所有Activity的生命周期。 ActivityThread，App的真正入口。当开启App之后，会调用main()开始运行，开启消息循环">
-<meta name="twitter:image" content="http://yoursite.com/2017/05/14/Activity启动流程全解析/zygote.png">
+<meta name="twitter:image" content="http://yoursite.com/2017/04/14/Activity启动流程全解析/zygote.png">
 
 
 
@@ -133,7 +133,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/05/14/Activity启动流程全解析/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/04/14/Activity启动流程全解析/"/>
 
 
 
@@ -268,7 +268,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/14/Activity启动流程全解析/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/14/Activity启动流程全解析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Newbirder">
@@ -297,8 +297,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-14T16:22:52+08:00">
-                2017-05-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-14T16:22:52+08:00">
+                2017-04-14
               </time>
             
 
@@ -345,20 +345,20 @@
 </ul>
 <p>Zygote 会在其启动后，预加载必要的类和资源，并启动 System Server ，并打开socket 去监听启动应用程序的请求。</p>
 <p>SystemServer也是一个进程，而且是由zygote进程fork出来的。<br>System Server 非常重要，因为系统里面重要的服务都是在这个进程里面开启的，比如ActivityManagerService、PackageManagerService、WindowManagerService等等。</p>
-<center><br><img src="/2017/05/14/Activity启动流程全解析/zygote.png" width="50%" height="50%"><br></center>
+<center><br><img src="/2017/04/14/Activity启动流程全解析/zygote.png" width="50%" height="50%"><br></center>
 
 <h4 id="ActivityManager-架构"><a href="#ActivityManager-架构" class="headerlink" title="ActivityManager 架构"></a>ActivityManager 架构</h4><p>IActivityManager对应IXXX接口<br>ActivityManagerNative对应IXXX.Stub类，继承自Binder类。<br>ActivityManagerProxy对应IXXX.Stub.Proxy类。<br>那么AMS的服务端是那个类呢？没错，就是ActivityManagerService类，这个类继承。ActivityManagerNative，实现了IActivityManager接口中的方法用来进行IPC。</p>
-<center><br><img src="/2017/05/14/Activity启动流程全解析/ActivityManager.png"><br></center>
+<center><br><img src="/2017/04/14/Activity启动流程全解析/ActivityManager.png"><br></center>
 
 <h4 id="Activity启动的双向IPC过程"><a href="#Activity启动的双向IPC过程" class="headerlink" title="Activity启动的双向IPC过程"></a>Activity启动的双向IPC过程</h4><p>Activity 的启动过程是多个进程配合的结果。现在先看Activity 到AMS 的一次IPC 调用。</p>
-<center><br><img src="/2017/05/14/Activity启动流程全解析/ActivityIPC1.png"><br></center>
+<center><br><img src="/2017/04/14/Activity启动流程全解析/ActivityIPC1.png"><br></center>
 
 <p>现在我们知道，Activity是如何向AMS发出startActivity这个请求了，这意味着Activity可以与AMS进行通信，但是AMS却不能与Activity通信，Binder是单向的，所以在Activity发出请求之后，AMS需要通知Activity发生状态改变，要做到这一点，自然就在AMS到Activity这个过程建立一个Binder，如下。</p>
-<center><br><img src="/2017/05/14/Activity启动流程全解析/ActivityIPC2.png"><br></center>
+<center><br><img src="/2017/04/14/Activity启动流程全解析/ActivityIPC2.png"><br></center>
 
 <p>大致过程就是，SystemServer 进程在收到请求后，再通过IPC 向应用进程发送scheduleLaunchActivity 请求，应用进程的binder 线程（ApplicationThread）在收到请求后，通过handler 向主线程发送LAUNCH_ACTIVITY 消息，主线程在收到Message 后，创建目标Activity，并回调Activity.onCreate()等方法。</p>
 <p>如下面这张图，AMS 到Activity 这个过程建立了一个Binder ，Activity 到AMS 这个过程也建立了一个Binder ，这就能相互通信了。</p>
-<center><br><img src="/2017/05/14/Activity启动流程全解析/ActivityIPC3.png"><br></center>
+<center><br><img src="/2017/04/14/Activity启动流程全解析/ActivityIPC3.png"><br></center>
 
 
       
@@ -396,8 +396,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/05/13/Binder/" rel="next" title="Binder 入门">
-                <i class="fa fa-chevron-left"></i> Binder 入门
+              <a href="/2017/02/15/Java垃圾回收机制/" rel="next" title="Java垃圾回收机制">
+                <i class="fa fa-chevron-left"></i> Java垃圾回收机制
               </a>
             
           </div>
