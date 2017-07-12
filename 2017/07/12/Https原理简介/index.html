@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="垃圾回收," />
+  <meta name="keywords" content="HTTPS 网络," />
 
 
 
@@ -90,22 +90,19 @@
 
 
 
-<meta name="description" content="可回收对象的判定1. 引用计数算法给对象中添加一个引用计数器，每当有一个地方引用它时，计数器值就加1；当引用失效时，计数器值就减1；任何时刻计数器为0的对象就是不可能再被使用的。优点是简单，高效，现在的objective-c用的就是这种算法。缺点是很难处理循环引用，比如相互引用的两个对象则无法释放。 2. 可达性分析算法（根搜索算法）主流商用程序语言的主流实现中，都是通过可达性分析来判断对象是否存">
-<meta name="keywords" content="垃圾回收">
+<meta name="description" content="1. HTTPS是什么HTTPS全称为Hypertext Transfer Protocol over Secure Socket Layer，及以安全为目标的HTTP通道，简单说就是HTTP的安全版本。 HTTPS其实是由两部分组成的：HTTP+TLS/SSL，即HTTP下加入TLS/SSL层，HTTPS的安全基础就是TLS/SSL。服务端和客户端的信息传输都会通过TLS/SSL进行加密，所以传">
+<meta name="keywords" content="HTTPS 网络">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java垃圾回收机制">
-<meta property="og:url" content="http://yoursite.com/2017/05/15/Java垃圾回收机制/index.html">
+<meta property="og:title" content="Https原理简介">
+<meta property="og:url" content="http://yoursite.com/2017/07/12/Https原理简介/index.html">
 <meta property="og:site_name" content="Newbirder 的博客">
-<meta property="og:description" content="可回收对象的判定1. 引用计数算法给对象中添加一个引用计数器，每当有一个地方引用它时，计数器值就加1；当引用失效时，计数器值就减1；任何时刻计数器为0的对象就是不可能再被使用的。优点是简单，高效，现在的objective-c用的就是这种算法。缺点是很难处理循环引用，比如相互引用的两个对象则无法释放。 2. 可达性分析算法（根搜索算法）主流商用程序语言的主流实现中，都是通过可达性分析来判断对象是否存">
-<meta property="og:image" content="http://yoursite.com/2017/05/15/Java垃圾回收机制/gc_root_object.png">
-<meta property="og:image" content="http://yoursite.com/2017/05/15/Java垃圾回收机制/gc_mark_sweep.png">
-<meta property="og:image" content="http://yoursite.com/2017/05/15/Java垃圾回收机制/gc_copying.png">
-<meta property="og:image" content="http://yoursite.com/2017/05/15/Java垃圾回收机制/gc_mark_compact.png">
-<meta property="og:updated_time" content="2017-07-09T17:42:13.000Z">
+<meta property="og:description" content="1. HTTPS是什么HTTPS全称为Hypertext Transfer Protocol over Secure Socket Layer，及以安全为目标的HTTP通道，简单说就是HTTP的安全版本。 HTTPS其实是由两部分组成的：HTTP+TLS/SSL，即HTTP下加入TLS/SSL层，HTTPS的安全基础就是TLS/SSL。服务端和客户端的信息传输都会通过TLS/SSL进行加密，所以传">
+<meta property="og:image" content="http://yoursite.com/2017/07/12/Https原理简介/https_work.png">
+<meta property="og:updated_time" content="2017-07-12T16:01:55.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java垃圾回收机制">
-<meta name="twitter:description" content="可回收对象的判定1. 引用计数算法给对象中添加一个引用计数器，每当有一个地方引用它时，计数器值就加1；当引用失效时，计数器值就减1；任何时刻计数器为0的对象就是不可能再被使用的。优点是简单，高效，现在的objective-c用的就是这种算法。缺点是很难处理循环引用，比如相互引用的两个对象则无法释放。 2. 可达性分析算法（根搜索算法）主流商用程序语言的主流实现中，都是通过可达性分析来判断对象是否存">
-<meta name="twitter:image" content="http://yoursite.com/2017/05/15/Java垃圾回收机制/gc_root_object.png">
+<meta name="twitter:title" content="Https原理简介">
+<meta name="twitter:description" content="1. HTTPS是什么HTTPS全称为Hypertext Transfer Protocol over Secure Socket Layer，及以安全为目标的HTTP通道，简单说就是HTTP的安全版本。 HTTPS其实是由两部分组成的：HTTP+TLS/SSL，即HTTP下加入TLS/SSL层，HTTPS的安全基础就是TLS/SSL。服务端和客户端的信息传输都会通过TLS/SSL进行加密，所以传">
+<meta name="twitter:image" content="http://yoursite.com/2017/07/12/Https原理简介/https_work.png">
 
 
 
@@ -133,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/05/15/Java垃圾回收机制/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/07/12/Https原理简介/"/>
 
 
 
 
 
-  <title>Java垃圾回收机制 | Newbirder 的博客</title>
+  <title>Https原理简介 | Newbirder 的博客</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -268,7 +265,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/15/Java垃圾回收机制/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/12/Https原理简介/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Newbirder">
@@ -285,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Java垃圾回收机制</h1>
+          <h1 class="post-title" itemprop="name headline">Https原理简介</h1>
         
 
         <div class="post-meta">
@@ -297,8 +294,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-15T22:57:37+08:00">
-                2017-05-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-12T23:37:52+08:00">
+                2017-07-12
               </time>
             
 
@@ -332,18 +329,33 @@
       
 
       
-        <h4 id="可回收对象的判定"><a href="#可回收对象的判定" class="headerlink" title="可回收对象的判定"></a>可回收对象的判定</h4><h5 id="1-引用计数算法"><a href="#1-引用计数算法" class="headerlink" title="1. 引用计数算法"></a>1. 引用计数算法</h5><p>给对象中添加一个引用计数器，每当有一个地方引用它时，计数器值就加1；当引用失效时，计数器值就减1；任何时刻计数器为0的对象就是不可能再被使用的。<br>优点是简单，高效，现在的objective-c用的就是这种算法。<br>缺点是很难处理循环引用，比如相互引用的两个对象则无法释放。</p>
-<h6 id="2-可达性分析算法（根搜索算法）"><a href="#2-可达性分析算法（根搜索算法）" class="headerlink" title="2. 可达性分析算法（根搜索算法）"></a>2. 可达性分析算法（根搜索算法）</h6><p>主流商用程序语言的主流实现中，都是通过可达性分析来判断对象是否存活的。从GC Roots 的对象作为起点，向下搜索它们引用的对象，可以生成一棵引用树，树的节点视为可达对象，反之视为不可达。</p>
-<center><br><img src="/2017/05/15/Java垃圾回收机制/gc_root_object.png"><br></center><br>在Java 语言中， 可作为 GC Roots 的对象包括以下几种：<br><br>&gt; 虚拟机栈（帧栈中的本地变量表）中引用的对象。<br>&gt; 方法区中静态属性引用的对象。<br>&gt; 方法区中常量引用的对象。<br>&gt; 本地方法栈中JNI引用的对象。<br><br>#### 垃圾回收算法<br><br>##### 1. 标记清除算法 (Mark-Sweep)<br><br>标记-清除算法分为两个阶段：标记阶段和清除阶段。标记阶段的任务是标记出所有需要被回收的对象，清除阶段就是回收被标记的对象所占用的空间。<br>优点是简单，容易实现。<br>缺点是容易产生内存碎片，碎片太多可能会导致后续过程中需要为大对象分配空间时无法找到足够的空间而提前触发新的一次垃圾收集动作。<br><center><br><img src="/2017/05/15/Java垃圾回收机制/gc_mark_sweep.png"><br></center>
+        <h4 id="1-HTTPS是什么"><a href="#1-HTTPS是什么" class="headerlink" title="1. HTTPS是什么"></a>1. HTTPS是什么</h4><p>HTTPS全称为Hypertext Transfer Protocol over Secure Socket Layer，及以安全为目标的HTTP通道，简单说就是HTTP的安全版本。</p>
+<p>HTTPS其实是由两部分组成的：HTTP+TLS/SSL，即HTTP下加入TLS/SSL层，HTTPS的安全基础就是TLS/SSL。服务端和客户端的信息传输都会通过TLS/SSL进行加密，所以传输的数据都是加密之后的数据。</p>
+<h4 id="2-加密算法"><a href="#2-加密算法" class="headerlink" title="2. 加密算法"></a>2. 加密算法</h4><p>1、 散列函数 Hash，常见的有 MD5、SHA1、SHA256，该类函数特点是函数单向不可逆、对输入非常敏感、输出长度固定，针对数据的任何修改都会改变散列函数的结果，用于防止信息篡改并验证数据的完整性。</p>
+<p>2、 对称加密，常见的有 AES-CBC、DES、3DES、AES-GCM等，相同的密钥可以用于信息的加密和解密，掌握密钥才能获取信息，能够防止信息窃听，通信方式是1对1。</p>
+<p>3、非对称加密，即常见的 RSA 算法，还包括 ECC、DH 等算法，算法特点是，密钥成对出现，一般称为公钥(公开)和私钥(保密)，公钥加密的信息只能私钥解开，私钥加密的信息只能公钥解开。因此掌握公钥的不同客户端之间不能互相解密信息，只能和掌握私钥的服务器进行加密通信，服务器可以实现1对多的通信，客户端也可以用来验证掌握私钥的服务器身份。</p>
+<h4 id="3、Https如何工作"><a href="#3、Https如何工作" class="headerlink" title="3、Https如何工作"></a>3、Https如何工作</h4><center><br><img src="https_work.png"><br></center>
 
-<h4 id="2-复制算法-Copying"><a href="#2-复制算法-Copying" class="headerlink" title="2. 复制算法 (Copying)"></a>2. 复制算法 (Copying)</h4><p>复制算法将可用内存按容量划分为大小相等的两块，每次只使用其中的一块。当这一块的内存用完了，就将还存活着的对象复制到另外一块上面，然后再把已使用的内存空间一次清理掉，这样一来就不容易出现内存碎片的问题。<br>优缺点就是，实现简单，运行高效且不容易产生内存碎片，但是却对内存空间的使用做出了高昂的代价，因为能够使用的内存缩减到原来的一半。<br>从算法原理我们可以看出，Copying算法的效率跟存活对象的数目多少有很大的关系，如果存活对象很多，那么Copying算法的效率将会大大降低。</p>
-<center><br><img src="/2017/05/15/Java垃圾回收机制/gc_copying.png"><br></center>
-
-<h4 id="3-标记整理算法-Mark-Compact"><a href="#3-标记整理算法-Mark-Compact" class="headerlink" title="3. 标记整理算法 (Mark-Compact)"></a>3. 标记整理算法 (Mark-Compact)</h4><p>该算法标记阶段和Mark-Sweep一样，但是在完成标记之后，它不是直接清理可回收对象，而是将存活对象都向一端移动，然后清理掉端边界以外的内存。<br>所以，特别适用于存活对象多，回收对象少的情况下。</p>
-<center><br><img src="/2017/05/15/Java垃圾回收机制/gc_mark_compact.png"><br></center>
-
-<h4 id="4-分代回收算法"><a href="#4-分代回收算法" class="headerlink" title="4. 分代回收算法"></a>4. 分代回收算法</h4><p>该算法没有什么新的思想，只是根据对象存活周期的不同将内存划分为几块。一般情况下将堆区划分为老年代（Old Generation）和新生代（Young Generation），老年代的特点是每次垃圾收集时只有少量对象需要被回收，而新生代的特点是每次垃圾回收时都有大量的对象需要被回收，那么就可以根据不同代的特点采取最适合的收集算法。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">1. 对于新生代采取Copying算法，因为新生代中每次垃圾回收都要回收大部分对象，也就是说需要复制的操作次数较少，采用Copying算法效率最高,将新生代划分为一块较大的Eden空间和两块较小的Survivor空间，比例为8：1：1。</div><div class="line">2. 由于老年代的特点是每次回收都只回收少量对象，一般使用的是Mark-Compact算法。</div></pre></td></tr></table></figure>
+<p>其工作过程大致是：</p>
+<p>1、客户端发起HTTPS请求</p>
+<p>浏览器里面输入一个HTTPS网址，然后连接到服务端的443端口上。注意这个过程中客户端会发送一个密文族给服务端，密文族是浏览器所支持的加密算法的清单。</p>
+<p>2、服务端配置</p>
+<p>采用HTTPS协议的服务器必须要有一套数字证书，可以自己制作，也可以向组织申请。区别就是自己颁发的证书需要客户端验证通过才可以继续访问，而使用受信任的公司申请的证书则不会弹出提示页面。</p>
+<p>这套证书其实就是一对公钥和私钥，可以这么理解，公钥就是一把锁头，私钥就是这把锁的钥匙，锁头可以给别人对某个东西进行加锁，但是加锁完毕之后，只有持有这把锁的钥匙才可以解锁看到加锁的内容。</p>
+<p>采用的就是RSA公钥加密算法来区分证书签名和交换密钥，通过AES算法来加密数据，至于GCM，应该是用来校验信息的</p>
+<p>3、传送证书</p>
+<p>这个证书其实就是公钥，只是包含了很多信息，如证书的颁发机构、过期时间等等。</p>
+<p>4、客户端解析证书</p>
+<p>这部分工作是由客户端的TLS来完成的，首先会验证公钥是否有效，如颁发机构、过期时间等等，如果发现异常则会弹出一个警告框，提示证书存在问题。如果证书没有问题，那么就生成一个随机值，然后用证书对该随机值进行加密。</p>
+<p>注意一下上面提到的”发现异常”。证书中会包含数字签名，该数字签名是加密过的，是用颁发机构的私钥对本证书的公钥、名称及其他信息做hash散列加密而生成的。客户端浏览器会首先找到该证书的根证书颁发机构，如果有，则用该根证书的公钥解密服务器下发的证书，如果不能正常解密，则就是”发现异常”，说明该证书是伪造的。</p>
+<p>5、传送加密信息</p>
+<p>这部分传送的是用证书加密后的随机值，目的就是让服务端得到这个随机值，然后客户端和服务端的通信就可以通过这个随机值来进行加密和解密了。</p>
+<p>6、服务端解密信息</p>
+<p>服务端用私钥解密后，得到了客户端传过来的随机值，至此一个非对称加密的过程结束，看到TLS利用非对称加密实现了身份认证和密钥协商。然后把内容通过该值进行对称加密。</p>
+<p>7、传输加密后的信息</p>
+<p>这部分是服务端用随机值加密后的信息，可以在客户端被还原。</p>
+<p>8、客户端解密信息</p>
+<p>客户端用之前生成的随机值解密服务端传送过来的信息，于是获取了解密后的内容，至此一个对称加密的过程结束，看到对称加密是用于对服务器待传送给客户端的数据进行加密用的。整个过程即使第三方监听了数据，也束手无策。</p>
 
       
     </div>
@@ -373,7 +385,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/垃圾回收/" rel="tag"># 垃圾回收</a>
+            <a href="/tags/HTTPS-网络/" rel="tag"># HTTPS 网络</a>
           
         </div>
       
@@ -466,7 +478,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -479,7 +491,7 @@
             
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">标签</span>
               
             </div>
@@ -514,7 +526,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#可回收对象的判定"><span class="nav-number">1.</span> <span class="nav-text">可回收对象的判定</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-引用计数算法"><span class="nav-number">1.1.</span> <span class="nav-text">1. 引用计数算法</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#2-可达性分析算法（根搜索算法）"><span class="nav-number">1.1.1.</span> <span class="nav-text">2. 可达性分析算法（根搜索算法）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-复制算法-Copying"><span class="nav-number">2.</span> <span class="nav-text">2. 复制算法 (Copying)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-标记整理算法-Mark-Compact"><span class="nav-number">3.</span> <span class="nav-text">3. 标记整理算法 (Mark-Compact)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-分代回收算法"><span class="nav-number">4.</span> <span class="nav-text">4. 分代回收算法</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-HTTPS是什么"><span class="nav-number">1.</span> <span class="nav-text">1. HTTPS是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-加密算法"><span class="nav-number">2.</span> <span class="nav-text">2. 加密算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、Https如何工作"><span class="nav-number">3.</span> <span class="nav-text">3、Https如何工作</span></a></li></ol></div>
             
 
           </div>
